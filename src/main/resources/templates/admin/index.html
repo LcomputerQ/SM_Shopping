@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8"/>
+<title>后台管理</title>
+<link rel="stylesheet" href="/css/bootstrap.css"/>
+</head>
+<body>
+<div class="container">
+
+	<br><br>
+
+	<div class="alert alert-success" role="alert">登录成功！</div>
+	<div th:replace="/admin/header::myheader"></div>
+	<div th:replace="${session.prefixView}::${session.View}"></div>
+</div>
+</body>
+</html>

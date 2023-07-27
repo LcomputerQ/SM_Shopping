@@ -1,0 +1,38 @@
+spring:
+  web:
+    resources:
+      static-locations: classpath:/public/
+  thymeleaf:
+    #    关闭缓存
+    cache: false
+  datasource:
+    druid:
+      url: jdbc:mysql://localhost:3306/sm_sql
+      username: root
+      password: GqpQf0jI9OwPpqDVPqoGqKEYKeOncxjpUvFK/EgVzgxpCCQWSV9UlnYdh8dnA86YhOJhpkwBUcf203vLjvl1KQ==
+      driver-class-name: com.mysql.cj.jdbc.Driver
+      filters: config
+      #设置密码需要加密，并配置publickey
+      connection-properties: config.decrypt=true;config.decrypt.key=MFwwDQYJKoZIhvcNAQEBBQADSwAwSAJBAMjD95aKutqRTWsKSPw5y8zRNoAdkLXW3OvcPxc5oRKNPvTFyjRJY+yDSj2laomQYVdZ0m7akewR47nQ2lbeZIcCAwEAAQ==
+      #初始化连接数
+      initial-size: 1
+      #最大连接数量
+      max-active: 20
+      #获取连接时最大等待时间
+      max-wait: 10000
+      #最小连接数量
+      min-idle: 1
+      #配置间隔多久才进行一次检测，检测需要关闭的空闲连接
+      time-between-eviction-runs-millis: 60000
+      #用来检测连接是否有效的SQL，解决数据库断开连接的问题
+      validation-query: select 1
+      stat-view-servlet:
+        enabled: true
+        login-username: admin
+        login-password: admin
+        url-pattern: /druid/*
+mybatis:
+
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
