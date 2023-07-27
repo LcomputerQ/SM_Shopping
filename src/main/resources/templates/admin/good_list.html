@@ -31,22 +31,22 @@
 	
 	
          <tr th:each="good:${map.list}">
-         	<td><p th:text="${good.id}"></p></td>
-         	<td><p><a href="../index/detail?id=1" target="_blank"><img th:src="${good.cover}" width="100px"></a></p></td>
-         	<td><p><a href="../index/detail?id=1" target="_blank" th:text="${good.name}"></a></p></td>
-         	<td><p th:text="${good.intro}"></p></td>
-         	<td><p th:text="${good.spec}"></p></td>
-         	<td><p th:text="${good.price}"></p></td>
-         	<td><p th:text="${good.typeId}"></p></td>
-         	<td><p th:text="${good.stock}"></p></td>
-         	<td><p th:text="${good.sales}"></p></td>
+         	<td><p th:text="${good.goods.id}"></p></td>
+         	<td><p><a href="../index/detail?id=1" target="_blank"><img th:src="${good.goods.cover}" width="100px"></a></p></td>
+         	<td><p><a href="../index/detail?id=1" target="_blank" th:text="${good.goods.name}"></a></p></td>
+         	<td><p th:text="${good.goods.intro}"></p></td>
+         	<td><p th:text="${good.goods.spec}"></p></td>
+         	<td><p th:text="${good.goods.price}"></p></td>
+         	<td><p th:text="${good.types.name}"></p></td>
+         	<td><p th:text="${good.goods.stock}"></p></td>
+         	<td><p th:text="${good.goods.sales}"></p></td>
 			<td>
 				<p>
-					<a class="btn btn-success topDelete" href="javascript:;" type="1" goodId="1" text="加入今日推荐">移出今日推荐</a>
-					
+					<a class="btn btn-success topDelete"  th:if="${good.tops!=null}" href="javascript:;" type="1" goodId="1" text="加入今日推荐">移出今日推荐</a>
+					<a class="btn btn-primary topSave" href="" th:if="${good.tops==null}" text="移出今日推荐">加入今日推荐</a >
 				</p>
-				<a class="btn btn-info" href="goodEdit?id=1">修改</a>
-				<a class="btn btn-danger" href="goodDelete?id=1">删除</a>
+				<a class="btn btn-info" th:href="|goodEdit?id=${good.goods.id}|">修改</a>
+				<a class="btn btn-danger" th:href="|goodDelete?id=${good.goods.id}|">删除</a>
 			</td>
        	</tr>
 	</table>
@@ -70,10 +70,13 @@
 
 <script type="text/javascript" src="/js/jquery.js"></script>
 <script type="text/javascript">
-	$(".form-control").onblur(function (){
+	$(".form-control").blur(function (){
 	 const 	numPage = $($("h2")[0]).text().split("/")[1].split("]")[0]
 		if($(this).val()>parseInt(numPage)){
 			$(this).val(parseInt(numPage));
+		}
+		if($(this).val()<0){
+			$(this).val(1)
 		}
 	})
 $(function(){

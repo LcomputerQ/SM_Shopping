@@ -11,4 +11,6 @@ public interface GoodsService {
      * @return
      */
     Map<String,Object> getAll(Integer page);
+
+    int goodDelete(Integer id);
 }

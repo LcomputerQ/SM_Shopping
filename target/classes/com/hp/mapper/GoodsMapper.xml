@@ -2,8 +2,24 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hp.mapper.GoodsMapper">
-
-    <select id="getAll" resultType="com.hp.pojo.Goods">
+    <resultMap id="goodVo" type="goodVo">
+      <id column="id" property="goods.id"/>
+      <result column="cover" property="goods.cover"/>
+        <result column="name" property="goods.name"/>
+        <result column="intro" property="goods.intro"/>
+        <result column="spec" property="goods.spec"/>
+        <result column="price" property="goods.price"/>
+        <result column="stock" property="goods.stock"/>
+        <result column="sales" property="goods.sales"/>
+        <result column="content" property="goods.content"/>
+        <result column="type_id" property="goods.typeId"/>
+        <collection property="tops" select="com.hp.mapper.TopsMapper.getByGoodId" column="id" javaType="com.hp.pojo.Tops"></collection>
+        <collection property="types" select="com.hp.mapper.TypesMapper.getById" column="type_id" javaType="com.hp.pojo.Types"></collection>
+     </resultMap>
+    <delete id="delete">
+        delete from goods where id = #{id};
+    </delete>
+    <select id="getAll" resultMap="goodVo">
         SELECT * FROM goods
     </select>
 </mapper>

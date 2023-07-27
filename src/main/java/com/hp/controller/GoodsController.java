@@ -21,11 +21,17 @@ public class GoodsController {
     @Autowired
     private GoodsService goodsService;
     @GetMapping("goodList")
-    public String getGoodsList(Model model, HttpSession session,@RequestParam("page") Integer page){
-
-        model.addAttribute("map", goodsService.getAll(page));
+    public String getGoodsList(Model model, HttpSession session,Integer page){
+        if(page==null)page = 1;
+         model.addAttribute("map", goodsService.getAll(page));
          session.setAttribute("View", "goodsList");
          session.setAttribute("prefixView", "/admin/good_list");
          return "admin/index";
     }
+    @GetMapping("/goodDelete")
+    public String goodDelete(Integer id){
+        int flag = goodsService.goodDelete(id);
+        return "forward:/admin/goodList";
+    }
+//    @GetMapping("")
 }
