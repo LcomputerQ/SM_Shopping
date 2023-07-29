@@ -42,8 +42,8 @@
          	<td><p th:text="${good.goods.sales}"></p></td>
 			<td>
 				<p>
-					<a class="btn btn-success topDelete"  th:if="${good.tops!=null}" href="javascript:;" type="1" goodId="1" text="加入今日推荐">移出今日推荐</a>
-					<a class="btn btn-primary topSave" href="" th:if="${good.tops==null}" text="移出今日推荐">加入今日推荐</a >
+					<a class="btn btn-success topDelete"  th:if="${good.tops!=null}" th:href="|/admin/deleteTops?goodId=${good.goods.id}|" type="1" goodId="1" >移出今日推荐</a>
+					<a class="btn btn-primary topSave" href="" th:if="${good.tops==null}" th:href="|/admin/addTops?goodId=${good.goods.id}|" >加入今日推荐</a >
 				</p>
 				<a class="btn btn-info" th:href="|goodEdit?id=${good.goods.id}|">修改</a>
 				<a class="btn btn-danger" th:href="|goodDelete?id=${good.goods.id}|">删除</a>
@@ -54,11 +54,11 @@
 	<br>
 	<div style='text-align:center;'>
 		<a class='btn btn-info'  href="goodList?page=1">首页</a>
-		<a class='btn btn-info' th:if="${map.page!=1}" th:href='|goodList?page=${map.page-1}|'>上一页</a>
+		<a class='btn btn-info' th:if="${map.page!=1}" th:href='|goodList?page=${map.page-1}&type=${map.type}|'>上一页</a>
 		<a class='btn btn-info' th:if="${map.page==1}" disabled>上一页</a>
 		<h2 style='display:inline;' th:text="|[${map.page}/${map.numPage}]|"></h2>
 		<h2 style='display:inline;' th:text="|[${map.total}]|"></h2>
-		<a class='btn btn-info' th:if="${map.page}!=${map.numPage}" th:href='|goodList?page=${map.page+1}|'>下一页</a>
+		<a class='btn btn-info' th:if="${map.page}!=${map.numPage}" th:href='|goodList?page=${map.page+1}&type=${map.type}|'>下一页</a>
 		<a class='btn btn-info' th:if="${map.page}==${map.numPage}" disabled>下一页</a>
 		<a class='btn btn-info' th:href='|goodList?page=${map.numPage}|'>尾页</a>
 		<input  type='number' class='form-control' style='display:inline;width:60px;' th:value='${map.page}'  th:min="1" th:max="${map.numPage}"/>

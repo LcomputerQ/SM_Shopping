@@ -6,4 +6,7 @@
     <select id="login" resultType="com.hp.pojo.Users">
         select id,username,name,phone,address from users where username = #{username} and password = #{password};
     </select>
+    <select id="getById" resultType="com.hp.pojo.Users">
+        select * from users where id = #{id}
+    </select>
 </mapper>

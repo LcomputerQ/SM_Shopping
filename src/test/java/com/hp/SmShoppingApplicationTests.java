@@ -1,7 +1,13 @@
 package com.hp;
 
 import com.hp.mapper.GoodsMapper;
+import com.hp.mapper.ItemsMapper;
+import com.hp.mapper.OrdersMapper;
+import com.hp.mapper.TopsMapper;
 import com.hp.pojo.Goods;
+import com.hp.service.OrdersService;
+import com.hp.vo.ItemsVo;
+import com.hp.vo.OrderVo;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -12,13 +18,15 @@ import java.util.List;
 class SmShoppingApplicationTests {
     @Autowired
    private GoodsMapper goodsMapper;
-
+    @Autowired
+    private OrdersService mapper;
     @Test
     void contextLoads() {
-        List<Goods> all = goodsMapper.getAll();
-        for (int is = 0; is < all.size(); is++) {
-            System.out.println(all.get(is));
-        }
+//        System.out.println(System.getProperty("user.dir")+"src\\main\\resources\\public");
+        List<OrderVo> all = mapper.getAll();
+        all.forEach(obj->{
+            System.out.println("obj = " + obj);
+        });
     }
 
 }

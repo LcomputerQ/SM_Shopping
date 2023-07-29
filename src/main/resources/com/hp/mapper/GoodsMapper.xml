@@ -16,10 +16,55 @@
         <collection property="tops" select="com.hp.mapper.TopsMapper.getByGoodId" column="id" javaType="com.hp.pojo.Tops"></collection>
         <collection property="types" select="com.hp.mapper.TypesMapper.getById" column="type_id" javaType="com.hp.pojo.Types"></collection>
      </resultMap>
+    <insert id="add">
+        insert into goods values (null,#{cover},#{name},#{intro},#{spec},#{price},#{stock},#{sales},#{content},#{typeId});
+    </insert>
+    <update id="update">
+        update goods
+        <set>
+            <if test="cover != null and cover !=''">
+                cover = #{cover},
+            </if>
+            <if test="name != null and name !=''">
+                name = #{name},
+            </if>
+            <if test="intro != null and intro !=''">
+                intro = #{intro},
+            </if>
+            <if test="spec != null and spec !=''">
+                spec = #{spec},
+            </if>
+            <if test="price != null and price !=''">
+                price = #{price},
+            </if>
+            <if test="stock != null and stock !=''">
+                stock = #{stock},
+            </if>
+            <if test="sales != null and sales !=''">
+                sales = #{sales},
+            </if>
+            <if test="content != null and content !=''">
+                content = #{content},
+            </if>
+            <if test="typeId != null and typeId !=''">
+                type_id = #{typeId}
+            </if>
+        </set>
+        where id = #{id}
+    </update>
     <delete id="delete">
         delete from goods where id = #{id};
     </delete>
     <select id="getAll" resultMap="goodVo">
-        SELECT * FROM goods
+        SELECT goods.* FROM goods
+            <if test="type!=null">
+             JOIN tops ON tops.`good_id` = goods.`id`
+           </if>
+    </select>
+    <select id="getById" resultMap="goodVo">
+         select * from goods where id = #{id}
+    </select>
+    <select id="get" resultType="com.hp.pojo.Goods">
+        select * from goods where id = #{id}
     </select>
 </mapper>

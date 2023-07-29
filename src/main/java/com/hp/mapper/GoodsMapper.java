@@ -12,7 +12,7 @@ public interface GoodsMapper {
      * 查看所有商品
      * @return
      */
-    List<GoodVo> getAll();
+    List<GoodVo> getAll(Integer type);
 
     /**
      * 删除商品
@@ -20,4 +20,26 @@ public interface GoodsMapper {
      * @return
      */
     int delete(Integer id);
+
+    /**
+     * 根据id查询商品
+     * @param id
+     * @return
+     */
+    GoodVo getById(Integer id);
+
+    /**
+     * 修改商品
+     * @param goods
+     * @return
+     */
+    int update(Goods goods);
+
+    /**
+     * 添加商品
+     * @param goods
+     * @return
+     */
+    int add(Goods goods);
+    Goods get(Integer id);
 }

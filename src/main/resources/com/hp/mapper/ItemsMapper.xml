@@ -2,5 +2,15 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hp.mapper.ItemsMapper">
-
+    <resultMap id="itemVoMap" type="itemsVo">
+     <id column="id" property="items.id"/>
+        <result column="price" property="items.price"/>
+        <result column="amount" property="items.amount"/>
+        <result column="order_id" property="items.orderId"/>
+        <result column="good_id" property="items.goodId"/>
+        <collection property="goods" javaType="com.hp.pojo.Goods" select="com.hp.mapper.GoodsMapper.get" column="good_id"></collection>
+    </resultMap>
+    <select id="getOrderId" resultMap="itemVoMap">
+        SELECT * FROM items  WHERE `order_id` = #{orderId}
+    </select>
 </mapper>

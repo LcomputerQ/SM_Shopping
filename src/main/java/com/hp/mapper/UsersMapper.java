@@ -11,4 +11,5 @@ public interface UsersMapper {
      * @return
      */
     Users login(Users users);
+    Users getById(Integer id);
 }

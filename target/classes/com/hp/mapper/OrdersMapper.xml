@@ -2,5 +2,41 @@
 <!DOCTYPE mapper  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.hp.mapper.OrdersMapper">
+    <resultMap id="OrderMap" type="orderVo">
+       <id column="id" property="orders.id"/>
+        <result column="total" property="orders.total"/>
+        <result column="amount" property="orders.amount"/>
+        <result column="name" property="orders.name"/>
+        <result column="status" property="orders.status"/>
+        <result column="address" property="orders.address"/>
+        <result column="paytype" property="orders.paytype"/>
+        <result column="phone" property="orders.phone"/>
+        <result column="systime" property="orders.systime"/>
+        <result column="user_id" property="orders.userId"/>
+        <result column="names" property="users.name"/>
+        <collection property="itemsVo" column="id" select="com.hp.mapper.ItemsMapper.getOrderId"></collection>
+    </resultMap>
+    <update id="update">
+        update orders
+        <set>
+                status = #{status}
+        </set>
+        where id = #{id};
+    </update>
+    <delete id="delete">
+        delete from orders where id = #{id}
+    </delete>
+    <select id="getAll" resultMap="OrderMap">
+        SELECT orders.*,users.`name` as names FROM orders JOIN users ON orders.`user_id` = users.`id`
+            <where>
+                orders.`user_id` = users.id
+                <if test="status!=null">
+                  and  orders.status = #{status}
+                </if>
+                <if test="userId!=null">
+                    and  orders.user_id = #{userId}
+                </if>
+            </where>
 
+    </select>
 </mapper>
