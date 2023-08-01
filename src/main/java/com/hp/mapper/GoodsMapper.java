@@ -42,4 +42,27 @@ public interface GoodsMapper {
      */
     int add(Goods goods);
     Goods get(Integer id);
+
+    /**
+     * 根据类型查找商品
+     * @param goods
+     * @return
+     */
+    List<Goods> getGoodsList(Goods goods);
+
+    /**
+     * 查询新品
+     * @return
+     */
+    List<Goods> newGoods();
+    /**
+     * 查询今日推荐商品
+     */
+    List<Goods> todayGoods();
+
+    /**
+     * 销量最高
+     * @return
+     */
+    List<Goods> hotGoods();
 }

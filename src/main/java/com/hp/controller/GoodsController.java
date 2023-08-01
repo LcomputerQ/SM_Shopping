@@ -69,4 +69,5 @@ public class GoodsController {
         int add = goodsService.add(goods);
         return "redirect:/admin/goodList";
     }
+
 }

@@ -10,7 +10,6 @@ public class WebConfig implements WebMvcConfigurer {
     @Override
     public void addViewControllers(ViewControllerRegistry registry) {
         registry.addViewController("/").setViewName("index");
-        registry.addViewController("/index/index").setViewName("index/index");
         registry.addViewController("/admin/login").setViewName("admin/login");
         registry.addViewController("/admin/index").setViewName("admin/index");
         registry.addViewController("/index/login").setViewName("index/login");
@@ -19,6 +18,8 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
-        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/admin/*").excludePathPatterns("/admin/login","/admin/tologin");
+        registry.addInterceptor(new MyInterceptor()).addPathPatterns("/admin/*","/index/*").
+                excludePathPatterns("/admin/login","/admin/tologin").
+                excludePathPatterns("/index/index","/index/logout","/index/tologin","/index/login","/index/today","/index/new","/index/hot","/index/type");
     }
 }

@@ -31,6 +31,8 @@
 	 $($("ul>li")[parseInt(sessionStorage.getItem("click"))]).addClass("active");
      $("ul>li").click(function (){
 		 sessionStorage.setItem("click",$(this).index());
+		 if($(this).index()==5)
+			 sessionStorage.clear();
 	 })
 </script>
 </html>

@@ -36,4 +36,35 @@ public interface GoodsService {
      * @return
      */
     int add(Goods goods);
+    /**
+     * 根据类型查找商品
+     * @param goods
+     * @return
+     */
+    List<Goods> getGoodsList(Goods goods,Integer page,Integer size);
+    /**
+     * 查询新品
+     * @return
+     */
+    Map<String,Object> newGoods(Integer page);
+
+    /**
+     * 今日推荐
+     * @param page
+     * @return
+     */
+    Map<String,Object> todayGoods(Integer page);
+    /**
+     * 销量排名
+     * @param page
+     * @return
+     */
+    Map<String,Object> hotGoods(Integer page);
+
+    /**
+     * 根据类目
+     * @param page
+     * @return
+     */
+    Map<String,Object> typeGoods(Integer page,Integer typeId);
 }

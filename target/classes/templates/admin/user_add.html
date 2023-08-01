@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org" th:fragment="add">
 <head>
 <title>客户添加</title>
 <meta charset="utf-8" />
@@ -9,8 +9,8 @@
 <div class="container">
 
 
-	<br><br>
-	
+	<br><font color="red" th:text="${session.msg}"></font><br>
+
 	<form class="form-horizontal" action="userSave" method="post">
 		<div class="form-group">
 			<label for="input_name" class="col-sm-1 control-label">用户</label>

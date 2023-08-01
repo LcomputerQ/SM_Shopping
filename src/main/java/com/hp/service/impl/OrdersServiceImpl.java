@@ -2,6 +2,7 @@ package com.hp.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.hp.mapper.ItemsMapper;
 import com.hp.mapper.OrdersMapper;
 import com.hp.pojo.Goods;
 import com.hp.pojo.Orders;
@@ -9,6 +10,7 @@ import com.hp.service.OrdersService;
 import com.hp.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -18,6 +20,8 @@ import java.util.Map;
 public class OrdersServiceImpl implements OrdersService {
     @Autowired
     private OrdersMapper ordersMapper;
+    @Autowired
+    private ItemsMapper itemsMapper;
     /**
      * 获取所有的订单
      *
@@ -55,7 +59,9 @@ public class OrdersServiceImpl implements OrdersService {
      * @return
      */
     @Override
+    @Transactional
     public int delete(Integer id) {
+        itemsMapper.delete(id);
         return ordersMapper.delete(id);
     }
 }

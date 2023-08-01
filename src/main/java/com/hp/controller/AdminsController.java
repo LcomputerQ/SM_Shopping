@@ -73,4 +73,9 @@ public class AdminsController {
         adminsService.inset(admins);
         return "redirect:/admin/adminList";
     }
+    @GetMapping("logout")
+    public String logOut(HttpSession session){
+        session.removeAttribute("admin");
+        return "admin/login";
+    }
 }

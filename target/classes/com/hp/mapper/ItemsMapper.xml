@@ -10,6 +10,9 @@
         <result column="good_id" property="items.goodId"/>
         <collection property="goods" javaType="com.hp.pojo.Goods" select="com.hp.mapper.GoodsMapper.get" column="good_id"></collection>
     </resultMap>
+    <delete id="delete">
+        delete from items where order_id = #{orderId}
+    </delete>
     <select id="getOrderId" resultMap="itemVoMap">
         SELECT * FROM items  WHERE `order_id` = #{orderId}
     </select>

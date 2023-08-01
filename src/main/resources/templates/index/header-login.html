@@ -111,10 +111,10 @@
 					
 		<!--导航-->
 		<ul id="inav">
-			<li class="active"><a href="index">商城首页</a></li>
-			<li ><a href="today">今日推荐</a></li>
-			<li ><a href="hot">热销排行</a></li>
-			<li ><a href="new">新品上市</a></li>
+			<li th:attr="class=${session.home==0}?active:null"><a href="index">商城首页</a></li>
+			<li th:attr="class=${session.home==1}?active:null"><a href="today">今日推荐</a></li>
+			<li th:attr="class=${session.home==2}?active:null"><a href="hot">热销排行</a></li>
+			<li th:attr="class=${session.home==3}?active:null"><a href="new">新品上市</a></li>
 		</ul>
 		
 	</div>
@@ -122,7 +122,7 @@
 
 
 <script src="/js/jquery.min.js" type="text/javascript"></script>
-<script src="layer/layer.js" type="text/javascript"></script>
+<script src="/layer/layer.js" type="text/javascript"></script>
 <script type="text/javascript">
 //显示隐藏分类
 $(".proclass").on("mouseenter", function() {
@@ -149,7 +149,7 @@ $(".uls li a").on("mouseleave",function(){
 $(document).on("click", ".addcart", function(){
 	var goodId = $(this).attr("data-id");
 	var index = layer.load();
-	$.post("cartBuy", {goodId:goodId}, function(data){
+	$.post("/index/cartBuy", {goodId:goodId}, function(data){
 		layer.close(index);
 		if(data==true){
 			layer.msg("加入成功", {

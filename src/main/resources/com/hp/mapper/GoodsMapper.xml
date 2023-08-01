@@ -19,6 +19,9 @@
     <insert id="add">
         insert into goods values (null,#{cover},#{name},#{intro},#{spec},#{price},#{stock},#{sales},#{content},#{typeId});
     </insert>
+    <select id="newGoods" resultType="goods">
+      select * from  (select * from goods order by  id desc limit 50)a
+    </select>
     <update id="update">
         update goods
         <set>
@@ -66,5 +69,22 @@
     </select>
     <select id="get" resultType="com.hp.pojo.Goods">
         select * from goods where id = #{id}
+    </select>
+    <select id="getGoodsList" resultType="com.hp.pojo.Goods">
+        select * from goods
+        <if test="sales!=null">
+            ORDER BY sales DESC
+        </if>
+        <where>
+            <if test="typeId!=null">
+              type_id = #{typeId}
+            </if>
+        </where>
+    </select>
+    <select id="todayGoods" resultType="com.hp.pojo.Goods">
+        SELECT * FROM tops JOIN goods ON tops.`good_id` = goods.`id`
+    </select>
+    <select id="hotGoods" resultType="com.hp.pojo.Goods">
+        SELECT * FROM goods WHERE sales>0 ORDER BY sales DESC
     </select>
 </mapper>
