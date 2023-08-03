@@ -24,4 +24,10 @@ public interface OrdersService {
      * @return
      */
     int delete(Integer id);
+    /**
+     * 添加订单
+     * @param orders
+     * @return
+     */
+    int add(Orders orders);
 }

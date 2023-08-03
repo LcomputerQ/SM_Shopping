@@ -10,6 +10,12 @@
         <result column="good_id" property="items.goodId"/>
         <collection property="goods" javaType="com.hp.pojo.Goods" select="com.hp.mapper.GoodsMapper.get" column="good_id"></collection>
     </resultMap>
+    <insert id="add">
+        insert into items values
+        <foreach collection="items" item="item" index="index"  separator=",">
+            (null,#{item.price},#{item.amount},#{item.orderId},#{item.goodId})
+        </foreach>
+    </insert>
     <delete id="delete">
         delete from items where order_id = #{orderId}
     </delete>

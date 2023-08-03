@@ -41,7 +41,7 @@ public interface GoodsService {
      * @param goods
      * @return
      */
-    List<Goods> getGoodsList(Goods goods,Integer page,Integer size);
+    List<Goods> getGoodsList(Goods goods,Integer page,Integer pageSize);
     /**
      * 查询新品
      * @return
@@ -59,7 +59,7 @@ public interface GoodsService {
      * @param page
      * @return
      */
-    Map<String,Object> hotGoods(Integer page);
+    Map<String,Object> hotGoods(Integer page,Integer size);
 
     /**
      * 根据类目
@@ -67,4 +67,13 @@ public interface GoodsService {
      * @return
      */
     Map<String,Object> typeGoods(Integer page,Integer typeId);
+
+    /**
+     * 根据商品名
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    Map<String,Object> nameGoods(Integer page,Integer pageSize,Goods goods);
+
 }

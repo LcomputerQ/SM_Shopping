@@ -55,4 +55,15 @@ public class CartsServiceImpl implements CartsService {
     public int add(Carts carts) {
         return cartsMapper.add(carts);
     }
+
+    /**
+     * 获取购物车数量
+     *
+     * @param carts
+     * @return
+     */
+    @Override
+    public int amount(Carts carts) {
+        return cartsMapper.amount(carts);
+    }
 }

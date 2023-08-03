@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -65,7 +66,7 @@ public class IndexController {
     public String hot(Model model,HttpSession session,@RequestParam(name = "page",defaultValue = "1",required = false) Integer page){
         session.setAttribute("home",2);
         model.addAttribute("href","hot");
-        model.addAttribute("goods",goodsService.hotGoods(page));
+        model.addAttribute("goods",goodsService.hotGoods(page,5));
         return "index/goods";
     }
 
@@ -89,6 +90,27 @@ public class IndexController {
         model.addAttribute("href","type");
         model.addAttribute("id",id);
         model.addAttribute("goods",goodsService.typeGoods(page,id));
+        return "index/goods";
+    }
+
+
+    /**
+     * 查看详细商品
+     * @param id
+     * @param model
+     * @return
+     */
+    @GetMapping("detail")
+    public String detail(Integer id,Model model){
+        model.addAttribute("goodsVo",goodsService.getById(id));
+        model.addAttribute("goods",goodsService.hotGoods(1,2));
+        return "/index/detail";
+    }
+    @GetMapping("search")
+    public String search(Model model,HttpSession session,String name,@RequestParam(name = "page",defaultValue = "1",required = false) Integer page){
+        model.addAttribute("href","search");
+        model.addAttribute("name",name);
+        model.addAttribute("goods",goodsService.nameGoods(page,5,Goods.builder().name(name).build()));
         return "index/goods";
     }
 }

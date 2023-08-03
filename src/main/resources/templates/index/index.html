@@ -45,7 +45,7 @@
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont"
                                                                                    th:text="${goodsVo.goods.price}">12</span></span>
                                 </p>
-                                <p class="addcart" data-id="32"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goodsVo.goods.id}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>
@@ -111,7 +111,7 @@
                             <p class="goods-spec" th:text="${goods.spec}">约1kg-1.5kg 一个</p>
                             <p class="goodsprices"><span class="yj">&yen;<span class="yjcont" th:text="${goods.price}">30</span></span>
                             </p>
-                            <p class="addcart" data-id="4"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                            <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                         </div>
                     </div>
                 </div>
@@ -148,7 +148,7 @@
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont"
                                                                                    th:text="${goods.price}">120</span></span>
                                 </p>
-                                <p class="addcart" data-id="41"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>
@@ -184,7 +184,7 @@
                                 <p class="goods-descript" th:text="${goods.intro}">不错的狗子</p>
                                 <p class="goods-spec" th:text="${goods.spec}">很大</p>
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont" th:text="${goods.price}">120</span></span></p>
-                                <p class="addcart" data-id="41"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>
@@ -219,7 +219,7 @@
                                 <p class="goods-descript" th:text="${goods.intro}"></p>
                                 <p class="goods-spec" th:text="${goods.spec}">400g</p>
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont" th:text="${goods.price}">59</span></span></p>
-                                <p class="addcart" data-id="26"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>
@@ -255,7 +255,7 @@
                                 <p class="goods-descript" th:text="${goods.intro}"></p>
                                 <p class="goods-spec" th:text="${goods.spec}">400g</p>
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont" th:text="${goods.price}">59</span></span></p>
-                                <p class="addcart" data-id="26"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>
@@ -290,7 +290,7 @@
                                 <p class="goods-descript" th:text="${goods.intro}"></p>
                                 <p class="goods-spec" th:text="${goods.spec}">400g</p>
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont" th:text="${goods.price}">59</span></span></p>
-                                <p class="addcart" data-id="26"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>
@@ -327,7 +327,7 @@
                                 <p class="goods-descript" th:text="${goods.intro}"></p>
                                 <p class="goods-spec" th:text="${goods.spec}">400g</p>
                                 <p class="goodsprices"><span class="yj">&yen;<span class="yjcont" th:text="${goods.price}">59</span></span></p>
-                                <p class="addcart" data-id="26"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
+                                <p class="addcart" th:data-id="${goods.getId()}"><i class="iconfont icon-gouwuche3"></i>加入购物车</p>
                             </div>
                         </div>
                     </div>

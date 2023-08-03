@@ -16,10 +16,27 @@
         <result column="names" property="users.name"/>
         <collection property="itemsVo" column="id" select="com.hp.mapper.ItemsMapper.getOrderId"></collection>
     </resultMap>
+    <insert id="add" keyProperty="id" useGeneratedKeys="true" keyColumn="id">
+        insert into orders values (null,#{total},#{amount},#{status},#{paytype},#{name},#{phone},#{address},now(),#{userId})
+    </insert>
     <update id="update">
         update orders
         <set>
+            <if test="status !=null">
                 status = #{status}
+            </if>
+            <if test="address !=null">
+                ,address = #{address}
+            </if>
+            <if test="name !=null">
+                ,name = #{name}
+            </if>
+            <if test="phone !=null">
+                ,phone = #{phone}
+            </if>
+            <if test="paytype !=null">
+                paytype = #{paytype}
+            </if>
         </set>
         where id = #{id};
     </update>
@@ -36,7 +53,9 @@
                 <if test="userId!=null">
                     and  orders.user_id = #{userId}
                 </if>
+                order by systime desc
             </where>
+
 
     </select>
 </mapper>

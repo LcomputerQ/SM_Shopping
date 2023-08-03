@@ -20,6 +20,7 @@ public class WebConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/admin/*","/index/*").
                 excludePathPatterns("/admin/login","/admin/tologin").
-                excludePathPatterns("/index/index","/index/logout","/index/tologin","/index/login","/index/today","/index/new","/index/hot","/index/type");
+                excludePathPatterns("/index/index","/index/logout","/index/tologin","/index/login","/index/today","/index/new","/index/hot","/index/type","/index/detail"
+                ,"/index/register","/index/reg","/index/search");
     }
 }

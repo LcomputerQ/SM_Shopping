@@ -79,6 +79,9 @@
             <if test="typeId!=null">
               type_id = #{typeId}
             </if>
+            <if test="name!=null">
+                name like CONCAT('%',#{name},'%')
+            </if>
         </where>
     </select>
     <select id="todayGoods" resultType="com.hp.pojo.Goods">

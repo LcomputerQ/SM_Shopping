@@ -36,7 +36,7 @@
 						<p class="goodsprices" style="display:block;">
 							<span class="yj">￥<span class="yjcont" th:text="${goods.price}">59</span></span>
 						</p>
-						<p class="addcart" data-id="26" style="display:none;">
+						<p class="addcart" th:data-id="${goods.id}" style="display:none;">
 							<i class="iconfont icon-gouwuche3"></i>加入购物车
 						</p>
 					</div>
@@ -44,13 +44,13 @@
 			</div>
 
 			<div class='holder'>
-				<a th:href='|${href}?page=1&id=${id==null?"":id}|'>首页</a>
-				<a th:href='|${href}?page=${goods.page-1}&id=${id==null?"":id}|' th:if="${goods.page>1}">上页</a>
+				<a th:href='|${href}?page=1&id=${id==null?"":id}&name=${name==null?"":name}|'>首页</a>
+				<a th:href='|${href}?page=${goods.page-1}&id=${id==null?"":id}&name=${name==null?"":name}|' th:if="${goods.page>1}">上页</a>
 				<a  th:if="${goods.page<=1}">上页</a>
-				<a th:attr="class=${index.count==goods.page}?jp-current:null" th:title='|第${index.count}页|' th:href='|${href}?page=${index.count}&id=${id==null?"":id}|' th:each="page,index:${#numbers.sequence(1,goods.numPage)}" th:text="${index.count}">1</a>
-				<a th:href='|${href}?page=${goods.page+1}&id=${id==null?"":id}|' th:if="${goods.page<goods.numPage}">下页</a>
+				<a th:attr="class=${index.count==goods.page}?jp-current:null" th:title='|第${index.count}页|' th:href='|${href}?page=${index.count}&id=${id==null?"":id}&name=${name==null?"":name}|' th:each="page,index:${#numbers.sequence(1,goods.numPage)}" th:text="${index.count}">1</a>
+				<a th:href='|${href}?page=${goods.page+1}&id=${id==null?"":id}&name=${name==null?"":name}|' th:if="${goods.page<goods.numPage}">下页</a>
 				<a th:if="${goods.page>=goods.numPage}">下页</a>
-				<a th:href='|${href}?page=${goods.numPage}&id=${id==null?"":id}|'>尾页</a>
+				<a th:href='|${href}?page=${goods.numPage}&id=${id==null?"":id}&name=${name==null?"":name}|'>尾页</a>
 			</div>
 
 		</div>

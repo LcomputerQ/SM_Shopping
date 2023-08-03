@@ -2,6 +2,7 @@ package com.hp.controller;
 
 import com.hp.pojo.Users;
 import com.hp.service.UsersService;
+import com.hp.utlis.Safe;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -9,6 +10,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import javax.servlet.http.HttpSession;
 
@@ -20,6 +22,7 @@ public class UsersController {
 
     @PostMapping("/index/tologin")
     public String login(Users users, HttpSession session, Model model) {
+        users.setPassword(Safe.md5(users.getPassword()));
         Users user = usersService.login(users);
         if ( user== null) {
             model.addAttribute("error", "账号或者密码错误");
@@ -56,6 +59,7 @@ public class UsersController {
     }
     @PostMapping("/admin/userUpdate")
     public String userUpdate(Users users){
+        users.setPassword(Safe.md5(users.getPassword()));
         usersService.update(users);
         return "redirect:/admin/userList";
     }
@@ -69,11 +73,13 @@ public class UsersController {
     }
     @PostMapping("/admin/userReset")
     public String userReset(Users users){
+        users.setPassword(Safe.md5(users.getPassword()));
         usersService.update(users);
         return "redirect:/admin/userList";
     }
     @PostMapping("/admin/userSave")
     public String userSave(Users users){
+        users.setPassword(Safe.md5(users.getPassword()));
         usersService.save(users);
         return "redirect:/admin/userList";
     }
@@ -81,5 +87,62 @@ public class UsersController {
     public String userDelete(Integer id){
         usersService.delete(id);
         return "forward:/admin/userList";
+    }
+    @GetMapping("index/password")
+    public String userPwd(){
+        return "/index/password";
+    }
+    @PostMapping("index/passwordUpdate")
+    public String passwordUpdate(String password,String passwordNew,Model model,HttpSession session){
+        Users user = (Users) session.getAttribute("user");
+        user.setPassword(Safe.md5(password));
+        if(usersService.login(user)==null){
+            model.addAttribute("msg","原密码不正确");
+        }else{
+            user.setPassword(Safe.md5(passwordNew));
+            usersService.update(user);
+            model.addAttribute("msg","修改成功");
+        }
+        return "/index/password";
+    }
+    /**
+     * 收货地址
+     * @return
+     */
+    @GetMapping("/index/address")
+    public String address(HttpSession session,Model model){
+        Users user = (Users) session.getAttribute("user");
+        model.addAttribute("user",user);
+        return "index/address";
+    }
+
+    /**
+     * 修改收货地址
+     * @return
+     */
+    @PostMapping("index/addressUpdate")
+    public String addressUpdate(Users users, HttpSession session, RedirectAttributes model){
+        Users user = (Users) session.getAttribute("user");
+        users.setId(user.getId());
+        int flag = usersService.update(users);
+        if(flag==1){
+          model.addFlashAttribute("msg","修改成功");
+          users.setUsername(user.getUsername());
+          session.setAttribute("user",users);
+        }else{
+            model.addFlashAttribute("msg","修改失败");
+        }
+        return "redirect:/index/address";
+    }
+    @PostMapping("index/reg")
+    public String req(Users users,HttpSession session){
+        users.setPassword(Safe.md5(users.getPassword()));
+        int flag = usersService.save(users);
+        if(flag==1){
+            session.setAttribute("msg","注册成功");
+        }else{
+            session.setAttribute("msg","注册失败");
+        }
+        return "/index/register";
     }
 }

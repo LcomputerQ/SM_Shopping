@@ -64,4 +64,16 @@ public class OrdersServiceImpl implements OrdersService {
         itemsMapper.delete(id);
         return ordersMapper.delete(id);
     }
+
+    /**
+     * 添加订单
+     *
+     * @param orders
+     * @return
+     */
+    @Override
+    public int add(Orders orders) {
+
+        return ordersMapper.add(orders);
+    }
 }

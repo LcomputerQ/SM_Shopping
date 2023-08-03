@@ -15,7 +15,7 @@
 			<a href="index"><img src="/img/logo.jpg"/></a>
 		</div>
 		<div class="sear_input">
-			<form action="search" method="post">
+			<form action="search" method="get">
 				<input type="text" name="name" value="">
 				<button><i class="iconfont icon-icon--"></i></button>
 			</form>
@@ -23,7 +23,7 @@
 		<div class="sera_cart">
 			<a href="cart"><p><i class="iconfont icon-gouwuche5"></i>我的购物车</p></a>
 			
-			<span class="cartnum">5</span>
+			<span class="cartnum"></span>
 			
 		</div>
 		
@@ -157,6 +157,12 @@ $(document).on("click", ".addcart", function(){
                 time: 1200 //1.2秒关闭（如果不配置，默认是3秒）
             });
 			updateCartnum(1); // 更新数量
+		}
+		else if(data==-1){
+			layer.msg("加入成功", {
+				icon: 1,   // 成功图标
+				time: 1200 //1.2秒关闭（如果不配置，默认是3秒）
+			});
 		}else if(data==false){
             layer.msg("操作失败", {
                 icon: 2,   // 失败图标
@@ -167,7 +173,9 @@ $(document).on("click", ".addcart", function(){
         }
 	});
 });
-
+$.get("/index/amount",function (data){
+	$(".cartnum").text(data);
+})
 // 更新购物车显示数量
 function updateCartnum(num){
 	if($(".cartnum").length > 0){

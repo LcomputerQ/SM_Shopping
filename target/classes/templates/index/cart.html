@@ -135,6 +135,9 @@
                 layer.msg("失败了");
             }
         });
+        $.get("/index/amount",function (data){
+            $(".cartnum").text(data);
+        })
     }
 
 

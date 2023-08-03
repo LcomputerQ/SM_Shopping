@@ -20,6 +20,10 @@ public class UsersException {
             request.getSession().setAttribute("msg","账号已存在添加失败");
             response.sendRedirect("/admin/userAdd");
         }
+        if(requestURI.split("/")[1].equals("index")){
+            request.getSession().setAttribute("msg","账号已存在注册失败");
+            response.sendRedirect("/index/register");
+        }
         return;
     }
 

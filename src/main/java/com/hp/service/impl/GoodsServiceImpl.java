@@ -112,8 +112,7 @@ public class GoodsServiceImpl implements GoodsService {
      * @return
      */
     @Override
-    public Map<String, Object> hotGoods(Integer page) {
-        int pageSize = 5;
+    public Map<String, Object> hotGoods(Integer page,Integer pageSize) {
         PageHelper.startPage(page,pageSize);
         return mapList(goodsMapper.hotGoods(),page,pageSize);
     }
@@ -129,6 +128,19 @@ public class GoodsServiceImpl implements GoodsService {
         int pageSize = 15;
         PageHelper.startPage(page,pageSize);
         return mapList(goodsMapper.getGoodsList(Goods.builder().typeId(typeId).build()),page,pageSize);
+    }
+
+    /**
+     * 根据商品名
+     *
+     * @param page
+     * @param pageSize
+     * @return
+     */
+    @Override
+    public Map<String, Object> nameGoods(Integer page, Integer pageSize,Goods goods) {
+        PageHelper.startPage(page,pageSize);
+        return mapList(goodsMapper.getGoodsList(goods),page,pageSize);
     }
 
     public Map<String,Object> mapList(List<Goods> goodsList,Integer page,Integer pageSize){

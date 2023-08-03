@@ -9,15 +9,39 @@
         <result column="user_id" property="carts.userId"/>
         <collection property="goods" column="good_id" select="com.hp.mapper.GoodsMapper.get" javaType="com.hp.pojo.Goods"/>
     </resultMap>
+    <insert id="add">
+        insert into carts values (null,#{amount},#{goodId},#{userId})
+    </insert>
     <update id="update">
         update carts
         set amount = amount + #{amount}
-        where id = #{id}
+        <where>
+            <if test="id!=null">
+                id = #{id}
+            </if>
+            <if test="goodId!=null">
+             and good_id = #{goodId}
+            </if>
+            <if test="userId!=null">
+                and user_id = #{userId}
+            </if>
+        </where>
     </update>
     <delete id="cartDelete">
         delete from carts where id = #{id};
     </delete>
     <select id="getAll" resultMap="cartMap">
         select * from carts where user_id = #{uId}
+    </select>
+    <select id="amount" resultType="java.lang.Integer">
+        SELECT COUNT(1) FROM carts
+            <where>
+                <if test="goodId!=null">
+                    good_id = #{goodId}
+                </if>
+                <if test="userId!=null">
+                    AND user_id = #{userId}
+                </if>
+            </where>
     </select>
 </mapper>

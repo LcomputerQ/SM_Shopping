@@ -3,6 +3,7 @@ package com.hp.mapper;
 import com.hp.pojo.Items;
 import com.hp.vo.ItemsVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -20,4 +21,11 @@ public interface ItemsMapper {
      * @return
      */
     int delete(Integer orderId);
+
+    /**
+     * 添加订单列表
+     * @param items
+     * @return
+     */
+    int add(@Param("items") List<Items> items);
 }

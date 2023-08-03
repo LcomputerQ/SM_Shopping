@@ -32,9 +32,9 @@
 
         <tr th:each="good:${map.list}">
             <td><p th:text="${good.goods.id}"></p></td>
-            <td><p><a href="../index/detail?id=1" target="_blank"><img th:src="${good.goods.cover}" width="100px"></a>
+            <td><p><a th:href="|../index/detail?id=${good.goods.id}|" target="_blank"><img th:src="${good.goods.cover}" width="100px"></a>
             </p></td>
-            <td><p><a href="../index/detail?id=1" target="_blank" th:text="${good.goods.name}"></a></p></td>
+            <td><p><a th:href="|../index/detail?id=${good.goods.id}|" target="_blank" th:text="${good.goods.name}"></a></p></td>
             <td><p th:text="${good.goods.intro}"></p></td>
             <td><p th:text="${good.goods.spec}"></p></td>
             <td><p th:text="${good.goods.price}"></p></td>

@@ -34,4 +34,13 @@ public interface CartsMapper {
      * @return
      */
     int add(Carts carts);
+
+    /**
+     * 获取购物车数量
+     * @param carts
+     * @return
+     */
+    int amount(Carts carts);
+
+
 }

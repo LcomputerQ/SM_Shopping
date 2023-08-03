@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class TopsController {
     @Autowired
     private TopsService topsService;
-    @GetMapping("addTops")
+    @GetMapping("topSave")
     public String addTops(Integer goodId){
        topsService.addTops(Tops.builder().goodId(goodId).type(1).build());
        return "forward:/admin/goodList";
