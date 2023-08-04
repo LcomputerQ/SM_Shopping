@@ -10,10 +10,10 @@
 	</head>
 	<body>
 	<div th:if="${session.user==null}">
-		<div th:replace="~{/index/header::myhead}"></div>
+		<div th:replace="~{index/header::myhead}"></div>
 	</div>
 	<div th:if="${session.user!=null}">
-		<div th:replace="~{/index/header-login::myhead}"></div>
+		<div th:replace="~{index/header-login::myhead}"></div>
 	</div>
 		<div id="main" class="main">
 
@@ -54,7 +54,7 @@
 			</div>
 
 		</div>
-
+	<footer th:replace="index/footer::myfoot"></footer>
 	</body>
 	<script src="/js/jquery.min.js" type="text/javascript"></script>
 	<script type="text/javascript">

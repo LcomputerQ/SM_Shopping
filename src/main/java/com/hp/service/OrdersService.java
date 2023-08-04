@@ -30,4 +30,17 @@ public interface OrdersService {
      * @return
      */
     int add(Orders orders);
+
+    /**
+     * 修改商品库存和商品销售
+     * @param orders
+     * @return
+     */
+    void updateGoodSales(Orders orders);
+    /**
+     * 获取订单商品已经订单列表
+     * @param orders
+     * @return
+     */
+    OrderVo get(Orders orders);
 }

@@ -46,7 +46,7 @@
                     <a class="btn btn-success topDelete" th:if="${good.tops!=null}"
                        th:href="|/admin/deleteTops?goodId=${good.goods.id}|" type="1" goodId="1">移出今日推荐</a>
                     <a class="btn btn-primary topSave" href="" th:if="${good.tops==null}"
-                       th:href="|/admin/addTops?goodId=${good.goods.id}|">加入今日推荐</a>
+                       th:href="|/admin/topSave?goodId=${good.goods.id}|">加入今日推荐</a>
                 </p>
                 <a class="btn btn-info" th:href="|goodEdit?id=${good.goods.id}|">修改</a>
                 <a class="btn btn-danger" th:href="|goodDelete?id=${good.goods.id}|">删除</a>
@@ -86,36 +86,6 @@
             $(this).val(1)
         }
     })
-    $(function () {
-        $(document).on("click", ".topSave", function () {
-            var type = $(this).attr("type");
-            var goodId = $(this).attr("goodId");
-            var text = $(this).attr("text");
-            var old = $(this).text();
-            var obj = this;
-            $.post("topSave", {"goodId": goodId, "type": type}, function (data) {
-                if (data == "ok") {
-                    $(obj).text(text).attr("class", "btn btn-success topDelete").attr("text", old);
-                } else {
-                    alert("操作失败!");
-                }
-            }, "text");
-        });
-        $(document).on("click", ".topDelete", function () {
-            var type = $(this).attr("type");
-            var goodId = $(this).attr("goodId");
-            var text = $(this).attr("text");
-            var old = $(this).text();
-            var obj = this;
-            $.post("topDelete", {"goodId": goodId, "type": type}, function (data) {
-                if (data == "ok") {
-                    $(obj).text(text).attr("class", "btn btn-primary topSave").attr("text", old);
-                } else {
-                    alert("操作失败!");
-                }
-            }, "text");
-        });
-    });
     if (sessionStorage.getItem("goodClick") == null) {
         $($("#good>li")[0]).addClass("active");
     }

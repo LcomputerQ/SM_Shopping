@@ -20,7 +20,7 @@ public interface ItemsMapper {
      * @param orderId
      * @return
      */
-    int delete(Integer orderId);
+    int delete(@Param("orderId")Integer orderId);
 
     /**
      * 添加订单列表

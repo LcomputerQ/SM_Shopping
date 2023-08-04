@@ -26,7 +26,7 @@ public class UsersController {
         Users user = usersService.login(users);
         if ( user== null) {
             model.addAttribute("error", "账号或者密码错误");
-            return "/index/login";
+            return "index/login";
         }
         session.setAttribute("user", user);
         return "redirect:/index/index";
@@ -41,19 +41,19 @@ public class UsersController {
     public String userList(HttpSession session,Model model,@RequestParam(defaultValue = "1",name = "page",required = false) Integer page){
         model.addAttribute("userList",usersService.getAll(page));
         session.setAttribute("View", "list");
-        session.setAttribute("prefixView", "/admin/user_list");
+        session.setAttribute("prefixView", "admin/user_list");
         return "admin/index";
     }
     @GetMapping("/admin/userAdd")
     public String userAdd(HttpSession session,Model model){
         session.setAttribute("View", "add");
-        session.setAttribute("prefixView", "/admin/user_add");
+        session.setAttribute("prefixView", "admin/user_add");
         return "admin/index";
     }
     @GetMapping("/admin/userEdit")
     public String userEdit(HttpSession session,Model model,Integer id){
         session.setAttribute("View", "edit");
-        session.setAttribute("prefixView", "/admin/user_edit");
+        session.setAttribute("prefixView", "admin/user_edit");
         model.addAttribute("user",usersService.getById(id));
         return "admin/index";
     }
@@ -68,7 +68,7 @@ public class UsersController {
         model.addAttribute("id",id);
         model.addAttribute("username",username);
         session.setAttribute("View", "reset");
-        session.setAttribute("prefixView", "/admin/user_reset");
+        session.setAttribute("prefixView", "admin/user_reset");
         return "admin/index";
     }
     @PostMapping("/admin/userReset")
@@ -90,7 +90,7 @@ public class UsersController {
     }
     @GetMapping("index/password")
     public String userPwd(){
-        return "/index/password";
+        return "index/password";
     }
     @PostMapping("index/passwordUpdate")
     public String passwordUpdate(String password,String passwordNew,Model model,HttpSession session){
@@ -103,7 +103,7 @@ public class UsersController {
             usersService.update(user);
             model.addAttribute("msg","修改成功");
         }
-        return "/index/password";
+        return "index/password";
     }
     /**
      * 收货地址
@@ -135,14 +135,14 @@ public class UsersController {
         return "redirect:/index/address";
     }
     @PostMapping("index/reg")
-    public String req(Users users,HttpSession session){
-        users.setPassword(Safe.md5(users.getPassword()));
+    public String req(Users users,Model model){
+//        users.setPassword(Safe.md5(users.getPassword()));
         int flag = usersService.save(users);
         if(flag==1){
-            session.setAttribute("msg","注册成功");
+            model.addAttribute("msg","注册成功");
         }else{
-            session.setAttribute("msg","注册失败");
+            model.addAttribute("msg","注册失败");
         }
-        return "/index/register";
+        return "index/register";
     }
 }

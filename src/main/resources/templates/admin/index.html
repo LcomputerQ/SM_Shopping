@@ -11,7 +11,7 @@
 	<br><br>
 
 	<div class="alert alert-success" role="alert">登录成功！</div>
-	<div th:replace="/admin/header::myheader"></div>
+	<div th:replace="admin/header::myheader"></div>
 	<div th:replace="${session.prefixView}::${session.View}"></div>
 </div>
 </body>

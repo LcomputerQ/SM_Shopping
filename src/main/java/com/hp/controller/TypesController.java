@@ -21,7 +21,7 @@ public class TypesController {
     @GetMapping("/redirect/type_add")
     public String redirectTypeAdd(HttpSession session) {
         session.setAttribute("View", "type_add");
-        session.setAttribute("prefixView", "/admin/type_add");
+        session.setAttribute("prefixView", "admin/type_add");
         return "redirect:/admin/index";
     }
 
@@ -29,8 +29,8 @@ public class TypesController {
     public String getTypesAll(Model model, HttpSession session) {
         model.addAttribute("typeList", typesService.getAll());
         session.setAttribute("View", "list");
-        session.setAttribute("prefixView", "/admin/type_list");
-        return "/admin/index";
+        session.setAttribute("prefixView", "admin/type_list");
+        return "admin/index";
     }
 
     @GetMapping("typeDelete")
@@ -64,7 +64,7 @@ public class TypesController {
     @GetMapping("typeEdit")
     public String get(Integer id, Model model, HttpSession session) {
         session.setAttribute("View", "edit");
-        session.setAttribute("prefixView", "/admin/type_edit");
+        session.setAttribute("prefixView", "admin/type_edit");
         model.addAttribute("types", typesService.getById(id));
         return "admin/index";
     }

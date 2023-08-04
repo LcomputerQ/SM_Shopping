@@ -8,6 +8,10 @@ import com.alipay.api.internal.util.AlipaySignature;
 import com.alipay.api.request.AlipayTradePagePayRequest;
 import com.hp.config.AlipayConfig;
 import com.hp.pojo.AliPay;
+import com.hp.pojo.Orders;
+import com.hp.pojo.Users;
+import com.hp.service.OrdersService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -30,13 +35,15 @@ public class AliPayController{
 
     @Resource
     private AlipayConfig aliPayConfig;
-
+    @Autowired
+    private OrdersService ordersService;
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
-    public void pay(AliPay aliPay, HttpServletResponse httpResponse) throws Exception {
+    public void pay(AliPay aliPay, HttpServletResponse httpResponse, HttpSession session) throws Exception {
+        Users user = (Users) session.getAttribute("user");
+        aliPay.setSubject(user.getUsername());
         // 1. 创建Client，通用SDK提供的Client，负责调用支付宝的API
         AlipayClient alipayClient = new DefaultAlipayClient(GATEWAY_URL, aliPayConfig.getAppId(),
                 aliPayConfig.getAppPrivateKey(), FORMAT, CHARSET, aliPayConfig.getAlipayPublicKey(), SIGN_TYPE);
-
         // 2. 创建 Request并设置Request参数
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();  // 发送请求的 Request类
         request.setNotifyUrl(aliPayConfig.getNotifyUrl());
@@ -61,7 +68,7 @@ public class AliPayController{
     }
 
     @PostMapping("/notify")  // 注意这里必须是POST接口
-    public String payNotify(HttpServletRequest request) throws Exception {
+    public String payNotify(HttpServletRequest request,HttpServletResponse response) throws Exception {
         if (request.getParameter("trade_status").equals("TRADE_SUCCESS")) {
             System.out.println("=========支付宝异步回调========");
 
@@ -90,6 +97,8 @@ public class AliPayController{
                 System.out.println("买家付款时间: " + params.get("gmt_payment"));
                 System.out.println("买家付款金额: " + params.get("buyer_pay_amount"));
             }
+            ordersService.update(Orders.builder().id(Integer.valueOf(params.get("out_trade_no"))).status(2).build());
+            ordersService.updateGoodSales(Orders.builder().id(Integer.valueOf(params.get("out_trade_no"))).build());
         }
         return "success";
     }

@@ -11,7 +11,7 @@
 	<br><br>
 	<form class="form-horizontal" action="goodUpdate" method="post" enctype="multipart/form-data" onsubmit="return check()">
 		<input type="hidden" name="id" th:value="${goods.goods.id}"/>
-		<input type="hidden" name="cover" value="../upload/1-6.jpg"/>
+		<input type="hidden" name="cover" th:value="${goods.goods.cover}"/>
 		<div class="form-group">
 			<label for="input_file" class="col-sm-1 control-label">封面</label> 
 			<div class="col-sm-6"><img th:src="${goods.goods.cover}" width="100"/>

@@ -35,7 +35,7 @@
                 ,phone = #{phone}
             </if>
             <if test="paytype !=null">
-                paytype = #{paytype}
+                ,paytype = #{paytype}
             </if>
         </set>
         where id = #{id};
@@ -55,7 +55,8 @@
                 </if>
                 order by systime desc
             </where>
-
-
+    </select>
+    <select id="get" resultMap="OrderMap">
+        select * from orders where id = #{order.id}
     </select>
 </mapper>

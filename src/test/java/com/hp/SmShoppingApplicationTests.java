@@ -10,6 +10,7 @@ import com.aliyun.oss.model.PutObjectRequest;
 import com.aliyun.oss.model.PutObjectResult;
 import com.hp.mapper.*;
 import com.hp.pojo.Goods;
+import com.hp.pojo.Orders;
 import com.hp.service.OrdersService;
 import com.hp.vo.ItemsVo;
 import com.hp.vo.OrderVo;
@@ -25,9 +26,10 @@ import java.util.List;
 @SpringBootTest
 class SmShoppingApplicationTests {
     @Autowired
-   private GoodsMapper goodsMapper;
+    private GoodsMapper goodsMapper;
     @Autowired
     private OrdersService mapper;
+
     public static void main(String[] args) throws Exception {
         // Endpoint以华东1（杭州）为例，其它Region请按实际情况填写。
         String endpoint = "https://oss-cn-hangzhou.aliyuncs.com";
@@ -39,7 +41,7 @@ class SmShoppingApplicationTests {
         String objectName = "exampledir/exampleobject.txt";
         // 填写本地文件的完整路径，例如D:\\localpath\\examplefile.txt。
         // 如果未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件流。
-        String filePath= "D:\\localpath\\examplefile.txt";
+        String filePath = "D:\\localpath\\examplefile.txt";
 
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, credentialsProvider);
@@ -68,13 +70,13 @@ class SmShoppingApplicationTests {
             }
         }
     }
+
     @Autowired
-    private CartsMapper cartsMapper;
+    private OrdersService ordersService;
+
     @Test
-    void  test(){
-  cartsMapper.getAll(1).forEach(obj->{
-      System.out.println("obj = " + obj);
-  });
+    void test() {
+
     }
 
 }

@@ -104,7 +104,7 @@ public class IndexController {
     public String detail(Integer id,Model model){
         model.addAttribute("goodsVo",goodsService.getById(id));
         model.addAttribute("goods",goodsService.hotGoods(1,2));
-        return "/index/detail";
+        return "index/detail";
     }
     @GetMapping("search")
     public String search(Model model,HttpSession session,String name,@RequestParam(name = "page",defaultValue = "1",required = false) Integer page){

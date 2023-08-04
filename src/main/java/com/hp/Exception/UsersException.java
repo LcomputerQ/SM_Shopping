@@ -26,5 +26,14 @@ public class UsersException {
         }
         return;
     }
+    @ExceptionHandler(Exception.class)
+    public void exceptionHandler(Exception ex, HttpServletResponse response){
+        try {
+            response.sendRedirect("/index/error");
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        return;
+    }
 
 }

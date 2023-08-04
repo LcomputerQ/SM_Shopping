@@ -3,6 +3,7 @@ package com.hp.mapper;
 import com.hp.pojo.Goods;
 import com.hp.vo.GoodVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -12,7 +13,7 @@ public interface GoodsMapper {
      * 查看所有商品
      * @return
      */
-    List<GoodVo> getAll(Integer type);
+    List<GoodVo> getAll(@Param("type") Integer type);
 
     /**
      * 删除商品
@@ -65,4 +66,11 @@ public interface GoodsMapper {
      * @return
      */
     List<Goods> hotGoods();
+
+    /**
+     * 修改商品库存
+     * @param goods
+     * @return
+     */
+    int updateStock(Goods goods);
 }

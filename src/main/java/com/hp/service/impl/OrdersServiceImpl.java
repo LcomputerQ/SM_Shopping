@@ -2,11 +2,13 @@ package com.hp.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.hp.mapper.GoodsMapper;
 import com.hp.mapper.ItemsMapper;
 import com.hp.mapper.OrdersMapper;
 import com.hp.pojo.Goods;
 import com.hp.pojo.Orders;
 import com.hp.service.OrdersService;
+import com.hp.vo.ItemsVo;
 import com.hp.vo.OrderVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,6 +24,8 @@ public class OrdersServiceImpl implements OrdersService {
     private OrdersMapper ordersMapper;
     @Autowired
     private ItemsMapper itemsMapper;
+    @Autowired
+    private GoodsMapper goodsMapper;
     /**
      * 获取所有的订单
      *
@@ -75,5 +79,33 @@ public class OrdersServiceImpl implements OrdersService {
     public int add(Orders orders) {
 
         return ordersMapper.add(orders);
+    }
+
+    /**
+     * 修改商品库存和商品销售
+     *
+     * @param orders
+     * @return
+     */
+    @Override
+    @Transactional
+    public void updateGoodSales(Orders orders) {
+        OrderVo orderVo = ordersMapper.get(orders);
+        List<ItemsVo> itemsVo = orderVo.getItemsVo();
+        for (int i = 0; i < itemsVo.size(); i++) {
+            ItemsVo items= itemsVo.get(i);
+            goodsMapper.updateStock(Goods.builder().sales(items.getItems().getAmount()).stock(items.getItems().getAmount()).id(items.getItems().getGoodId()).build());
+        }
+    }
+
+    /**
+     * 获取订单商品已经订单列表
+     *
+     * @param orders
+     * @return
+     */
+    @Override
+    public OrderVo get(Orders orders) {
+        return ordersMapper.get(orders);
     }
 }

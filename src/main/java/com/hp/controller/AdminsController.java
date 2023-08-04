@@ -27,7 +27,7 @@ public class AdminsController {
         Admins login = adminsService.login(admins);
         if(login==null){
             model.addAttribute("error","账号或者密码错误");
-            return "/admin/login";
+            return "admin/login";
         }
         session.setAttribute("admin",admins);
         redirectAttributes.addFlashAttribute("msg","登入成功");
@@ -37,14 +37,14 @@ public class AdminsController {
     public String adminList(HttpSession session,Model model,Integer page){
         if(page==null) page = 1;
         session.setAttribute("View", "list");
-        session.setAttribute("prefixView", "/admin/admin_list");
+        session.setAttribute("prefixView", "admin/admin_list");
         model.addAttribute("res", adminsService.selectAll(page));
         return "forward:/admin/index";
     }
     @GetMapping("admin_reset")
     public String adminReset(HttpSession session,Model model,Admins admins){
         session.setAttribute("View", "reset");
-        session.setAttribute("prefixView", "/admin/admin_reset");
+        session.setAttribute("prefixView", "admin/admin_reset");
         model.addAttribute("admins",admins);
         return "forward:/admin/index";
     }
@@ -65,7 +65,7 @@ public class AdminsController {
     @GetMapping("admin_add")
     public String adminAdd(HttpSession session){
         session.setAttribute("View", "add");
-        session.setAttribute("prefixView", "/admin/admin_add");
+        session.setAttribute("prefixView", "admin/admin_add");
         return "forward:/admin/index";
     }
     @PostMapping("adminSave")

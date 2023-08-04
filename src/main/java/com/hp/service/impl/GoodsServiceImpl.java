@@ -9,6 +9,7 @@ import com.hp.vo.GoodVo;
 import javafx.util.Builder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.HashMap;
 import java.util.List;
@@ -142,7 +143,6 @@ public class GoodsServiceImpl implements GoodsService {
         PageHelper.startPage(page,pageSize);
         return mapList(goodsMapper.getGoodsList(goods),page,pageSize);
     }
-
     public Map<String,Object> mapList(List<Goods> goodsList,Integer page,Integer pageSize){
         Map<String,Object> map = new HashMap<>();
         Page<Goods> pages = (Page<Goods>) goodsList;

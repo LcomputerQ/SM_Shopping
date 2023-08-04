@@ -14,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addViewController("/admin/index").setViewName("admin/index");
         registry.addViewController("/index/login").setViewName("index/login");
         registry.addViewController("/index/register").setViewName("index/register");
+        registry.addViewController("/index/error").setViewName("index/error");
     }
 
     @Override
@@ -21,6 +22,6 @@ public class WebConfig implements WebMvcConfigurer {
         registry.addInterceptor(new MyInterceptor()).addPathPatterns("/admin/*","/index/*").
                 excludePathPatterns("/admin/login","/admin/tologin").
                 excludePathPatterns("/index/index","/index/logout","/index/tologin","/index/login","/index/today","/index/new","/index/hot","/index/type","/index/detail"
-                ,"/index/register","/index/reg","/index/search");
+                ,"/index/register","/index/reg","/index/search","/index/error");
     }
 }

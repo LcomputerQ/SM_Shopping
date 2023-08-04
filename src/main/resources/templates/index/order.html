@@ -7,11 +7,16 @@
     <link rel="stylesheet" type="text/css" href="/css/common.css">
     <link rel="stylesheet" type="text/css" href="/css/reclassify.css">
     <link rel="stylesheet" type="text/css" href="/css/order.css">
+    <style>
+        .pay {
+            padding: 10px;
+        }
 
+    </style>
 </head>
 <body>
 <div th:if="${session.user!=null}">
-    <div th:replace="~{/index/header-login::myhead}"></div>
+    <div th:replace="~{index/header-login::myhead}"></div>
 </div>
 <div id="main">
 
@@ -44,7 +49,8 @@
                         <td colspan="8">
                             <span style="margin-left: 20px;">订单编号&nbsp;:&nbsp;</span><i class="order-num"
                                                                                             th:text="${order.orders.id}">1</i>
-                            <span style="margin-left: 40px;">下单时间&nbsp;:&nbsp;</span><i class="order-num" th:date="${order.orders.systime}"></i>
+                            <span style="margin-left: 40px;">下单时间&nbsp;:&nbsp;</span><i class="order-num"
+                                                                                            th:date="${order.orders.systime}"></i>
                         </td>
                     </tr>
                     <tr class="order" style="margin-bottom: 10px;">
@@ -68,7 +74,7 @@
                         <td class="li7" rowspan="0">
                             <div th:switch="${order.orders.status}">
                                 <span th:case="1">未付款</span>
-                                <span th:case="2">已付款 (微信)</span>
+                                <span th:case="2">已付款 (支付宝)</span>
                                 <span th:case="3">已发货</span>
                                 <span th:case="4">已完成</span>
                             </div>
@@ -76,8 +82,19 @@
                         <td class="li8" rowspan="0">
                             <div>
                                 <p>
-                                    <a href="" class="layui-btn" th:if="${order.orders.status==1}">去付款</a>
-                                    <a href="" class="layui-btn" th:if="${order.orders.status==3}">确认收货</a>
+                                <form action="orderPay" method="post">
+                                    <input type="hidden" name="name" th:value="${order.orders.name}">
+                                    <input type="hidden" name="id" th:value="${order.orders.id}">
+                                    <input type="hidden" name="amount" th:value="${order.orders.total}">
+                                    <input type="hidden" name="status" value="4" th:if="${order.orders.status==3}">
+                                    <button type="submit" class="sta1 pay noSelect" th:if="${order.orders.status==1}">
+                                        去付款
+                                    </button>
+                                    <button type="submit" class="sta1 pay noSelect" th:if="${order.orders.status==3}">
+                                        确认收货
+                                    </button>
+                                </form>
+
                                 </p>
                             </div>
                         </td>
@@ -111,7 +128,7 @@
             <a th:href='|order?page=${orders.numPage}|'>尾页</a>
         </div>
     </div>
-
+    <footer th:replace="index/footer::myfoot"></footer>
 </div>
 </body>
 <script src="/js/jquery.min.js" type="text/javascript"></script>

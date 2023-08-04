@@ -14,4 +14,11 @@ public interface ItemsService {
      */
     int add(@Param("items") List<Items> items);
 
+    /**
+     * 删除订单列表
+     * @param orderId
+     * @return
+     */
+    int delete(Integer orderId);
+
 }

@@ -11,7 +11,7 @@
 </head>
 <body style="background: #fff;">
 <div th:if="${session.user!=null}">
-	<div th:replace="~{/index/header-login::myhead}"></div>
+	<div th:replace="~{index/header-login::myhead}"></div>
 </div>
 	<div id="main">
 		
@@ -53,6 +53,7 @@
 				<form action="orderPay" method="post" id="form">
 					<input type="hidden" name="id" th:value="${goodId}">
 					<input type="hidden" name="paytype">
+					<input type="hidden" name="amount" th:value="${total}">
 			        <div class="box clearfix">
 						<div class="left">
 							<span>姓名&nbsp;：&nbsp;</span>
@@ -104,7 +105,7 @@
 	    </div>
 		
 	</div>
-		
+<footer th:replace="index/footer::myfoot"></footer>
 
 
 </body>

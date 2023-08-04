@@ -24,4 +24,15 @@ public class ItemsServiceImpl implements ItemsService {
     public int add(List<Items> items) {
         return itemsMapper.add(items);
     }
+
+    /**
+     * 删除订单列表
+     *
+     * @param orderId
+     * @return
+     */
+    @Override
+    public int delete(Integer orderId) {
+        return itemsMapper.delete(orderId);
+    }
 }

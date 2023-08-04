@@ -3,6 +3,7 @@ package com.hp.mapper;
 import com.hp.pojo.Orders;
 import com.hp.vo.OrderVo;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public interface OrdersMapper {
      * @param id
      * @return
      */
-    int delete(Integer id);
+    int delete(@Param("id") Integer id);
 
     /**
      * 添加订单
@@ -34,4 +35,11 @@ public interface OrdersMapper {
      * @return
      */
     int add(Orders orders);
+
+    /**
+     * 获取订单商品已经订单列表
+     * @param orders
+     * @return
+     */
+    OrderVo get(@Param("order") Orders orders);
 }

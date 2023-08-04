@@ -24,26 +24,26 @@ public class GoodsController {
     private TypesService typesService;
 
     @GetMapping("goodList")
-    public String getGoodsList(Model model, HttpSession session, Integer page,Integer type) {
-        if (page == null) page = 1;
+    public String getGoodsList(Model model, HttpSession session,@RequestParam(name = "page",defaultValue = "1",required = false) Integer page,Integer type) {
         model.addAttribute("map", goodsService.getAll(page,type));
         session.setAttribute("View", "goodsList");
-        session.setAttribute("prefixView", "/admin/good_list");
+        session.setAttribute("prefixView", "admin/good_list");
+        session.setAttribute("goodsPage",page);
+        session.setAttribute("goodsType",type!=null?type:"");
         return "admin/index";
     }
 
     @GetMapping("/goodDelete")
-    public String goodDelete(Integer id) {
+    public String goodDelete(Integer id,HttpSession session) {
         int flag = goodsService.goodDelete(id);
-        return "forward:/admin/goodList";
+        return "forward:/admin/goodList?page="+session.getAttribute("goodsPage")+"&type="+session.getAttribute("goodsType");
     }
-
     @GetMapping("/goodEdit")
     public String goodEdit(Integer id, Model model,HttpSession session) {
         model.addAttribute("goods", goodsService.getById(id));
         model.addAttribute("types",typesService.getAll());
         session.setAttribute("View", "edit");
-        session.setAttribute("prefixView", "/admin/good_edit");
+        session.setAttribute("prefixView", "admin/good_edit");
         return "admin/index";
     }
     @PostMapping("goodUpdate")
@@ -52,13 +52,13 @@ public class GoodsController {
         if(img!=null)
             goods.setCover(img);
         goodsService.update(goods);
-        return "redirect:/admin/goodList";
+        return "redirect:/admin/goodList?page="+session.getAttribute("goodsPage")+"&type="+session.getAttribute("goodsType");
     }
     @GetMapping("goodAdd")
     public String goodAdd(HttpSession session,Model model){
         model.addAttribute("types",typesService.getAll());
         session.setAttribute("View", "add");
-        session.setAttribute("prefixView", "/admin/good_add");
+        session.setAttribute("prefixView", "admin/good_add");
         return "admin/index";
     }
     @PostMapping("goodSave")
@@ -67,7 +67,7 @@ public class GoodsController {
         goods.setCover(img);
         goods.setSales(0);
         int add = goodsService.add(goods);
-        return "redirect:/admin/goodList";
+        return "redirect:/admin/goodList?page="+session.getAttribute("goodsPage")+"&type="+session.getAttribute("goodsType");
     }
 
 }

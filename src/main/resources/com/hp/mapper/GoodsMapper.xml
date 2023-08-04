@@ -55,6 +55,9 @@
         </set>
         where id = #{id}
     </update>
+    <update id="updateStock">
+        update goods set stock = stock - #{stock} , sales = sales + #{sales} where id = #{id};
+    </update>
     <delete id="delete">
         delete from goods where id = #{id};
     </delete>
