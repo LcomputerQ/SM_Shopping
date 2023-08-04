@@ -12,10 +12,8 @@ import com.hp.pojo.Orders;
 import com.hp.pojo.Users;
 import com.hp.service.OrdersService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
@@ -24,7 +22,7 @@ import javax.servlet.http.HttpSession;
 import java.util.HashMap;
 import java.util.Map;
 
-@RestController
+@Controller
 @RequestMapping("/alipay")
 public class AliPayController{
     private static final String GATEWAY_URL = "https://openapi-sandbox.dl.alipaydev.com/gateway.do";
@@ -38,6 +36,7 @@ public class AliPayController{
     @Autowired
     private OrdersService ordersService;
     @GetMapping("/pay") // &subject=xxx&traceNo=xxx&totalAmount=xxx
+    @ResponseBody
     public void pay(AliPay aliPay, HttpServletResponse httpResponse, HttpSession session) throws Exception {
         Users user = (Users) session.getAttribute("user");
         aliPay.setSubject(user.getUsername());
@@ -47,6 +46,7 @@ public class AliPayController{
         // 2. 创建 Request并设置Request参数
         AlipayTradePagePayRequest request = new AlipayTradePagePayRequest();  // 发送请求的 Request类
         request.setNotifyUrl(aliPayConfig.getNotifyUrl());
+        request.setReturnUrl(aliPayConfig.getReturnUrl());
         JSONObject bizContent = new JSONObject();
         bizContent.set("out_trade_no", aliPay.getTraceNo());  // 我们自己生成的订单编号
         bizContent.set("total_amount", aliPay.getTotalAmount()); // 订单的总金额
@@ -68,10 +68,10 @@ public class AliPayController{
     }
 
     @PostMapping("/notify")  // 注意这里必须是POST接口
+    @ResponseBody
     public String payNotify(HttpServletRequest request,HttpServletResponse response) throws Exception {
         if (request.getParameter("trade_status").equals("TRADE_SUCCESS")) {
             System.out.println("=========支付宝异步回调========");
-
             Map<String, String> params = new HashMap<>();
             Map<String, String[]> requestParams = request.getParameterMap();
             for (String name : requestParams.keySet()) {
